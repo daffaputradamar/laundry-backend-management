@@ -2,55 +2,48 @@ const Item = require('./itemModel')
 
 module.exports = {
     index: (req, res) => {
-        Item.find(function(err, item) {
-            if (err) res.send(err)
-            res.status(200).json(item)
-        })
+        Item.find()
+            .then(item => res.json(item))
+            .catch(err => console.log(err))
     },
-    findById: (req, res) => {
-        Item.findById({ _id: req.params.id }, function(err, item) {
-            if (err) res.send(err)
-            res.status(200).json(item)
-        })
-    },
-    store: (req, res) => {
-        let item = new Item()
-        item.name = req.body.name
-        item.desc = req.body.desc
-        item.save(function(err) {
-            if (err) res.send(err)
-            res.status(200).json({
-                message: 'Item Created',
-                SUCCESS: item,
-            })
-        })
+    show: (req, res) => {
+        if (req.user.role == 'admin' || req.user.role == 'kasir') {
+            Item.findById(req.params.id)
+                .then(item => res.json(item))
+                .catch(err => console.log(err))
+        } else {
+            res.sendStatus(403)
+        }
     },
     update: (req, res) => {
-        Item.findById({ _id: req.params.id }, function(err, item) {
-            if (err) res.send(err)
-            item.name = req.body.name
-            item.desc = req.body.desc
-            item.save(function(err) {
-                if (err) res.send(err)
-                res.status(200).json({
-                    UPDATED: item,
-                    message: 'Update successfully',
-                })
-            })
-        })
+        if (req.user.role == 'admin' || req.user.role == 'kasir') {
+            Item.findOneAndUpdate(
+                { _id: req.params.id },
+                { $set: req.body },
+                { new: true }
+            )
+                .then(item => res.json(item))
+                .catch(err => console.log(err))
+        } else {
+            res.sendStatus(403)
+        }
     },
-    delete: (req, res) => {
-        Item.deleteOne(
-            {
-                _id: req.params.id,
-            },
-            function(err, item) {
-                if (err) res.send(err)
-                res.status(200).json({
-                    REMOVED: item,
-                    message: 'Delete Successfully',
-                })
-            }
-        )
+    store: (req, res) => {
+        if (req.user.role == 'admin' || req.user.role == 'kasir') {
+            Item.create({ ...req.body })
+                .then(item => res.json(item))
+                .catch(err => console.log(err))
+        } else {
+            res.sendStatus(403)
+        }
+    },
+    destroy: (req, res) => {
+        if (req.user.role == 'admin' || req.user.role == 'kasir') {
+            Item.findOneAndDelete({ _id: req.params.id })
+                .then(item => res.json(item))
+                .catch(err => console.log(err))
+        } else {
+            res.sendStatus(403)
+        }
     },
 }

@@ -22,7 +22,7 @@ let port = process.env.APP_PORT
 
 //Mongo connect
 mongoose
-    .connect(db, { useNewUrlParser: true })
+    .connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected successfully...  :)'))
     .catch(err => console.log(err))
 

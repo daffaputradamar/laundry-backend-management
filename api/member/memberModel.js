@@ -22,6 +22,7 @@ const memberSchema = mongoose.Schema({
     },
 })
 
+autoIncrement.initialize(mongoose.connection)
 memberSchema.plugin(autoIncrement.plugin, 'Member')
 
 const Member = (module.exports = mongoose.model('Member', memberSchema))

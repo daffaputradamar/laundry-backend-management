@@ -116,7 +116,7 @@ module.exports = {
                                                 .get(
                                                     `http://localhost:${
                                                         process.env.APP_PORT
-                                                    }/api/v1/rules/diskon?`,
+                                                    }/api/v1/rule/diskon?`,
                                                     {
                                                         params: {
                                                             f:

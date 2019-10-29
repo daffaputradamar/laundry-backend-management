@@ -16,13 +16,17 @@
     "author": "Ivan Fadila Putra <i.fadilaputra@gmail.com> (ffadilaputra.github.io)",
     "license": "WTFPL",
     "dependencies": {
+        "axios": "^0.19.0",
         "body-parser": "^1.18.3",
         "cors": "^2.8.5",
         "dotenv": "^6.2.0",
         "express": "^4.16.4",
+        "jsonwebtoken": "^8.5.1",
         "module-alias": "^2.2.0",
         "mongoose": "^5.7.5",
-        "morgan": "*"
+        "mongoose-auto-increment": "^5.0.1",
+        "morgan": "*",
+        "shortid": "^2.2.15"
     },
     "devDependencies": {
         "nodemon": "^1.18.9",

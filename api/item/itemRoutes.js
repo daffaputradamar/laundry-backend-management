@@ -1,11 +1,14 @@
 const express = require('express')
 const router = express.Router()
-const itemController = require('./itemController')
+const verifyToken = require('@lib/verifyToken')
 
-router.get('/item', itemController.index)
-router.post('/item', itemController.store)
-router.get('/item/:id', itemController.findById)
-router.put('/item/:id', itemController.update)
-router.delete('/item/:id', itemController.delete)
+const itemController = require('./itemController')
+router.get('/show_item/', itemController.index)
+router.use(verifyToken)
+router.get('/', itemController.index)
+router.get('/:id', itemController.show)
+router.post('/', itemController.store)
+router.put('/:id', itemController.update)
+router.delete('/:id', itemController.destroy)
 
 module.exports = router
