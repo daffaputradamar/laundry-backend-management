@@ -3,13 +3,13 @@ const express = require('express')
 const cors = require('cors')
 const bodyParser = require('body-parser')
 const mongoose = require('mongoose')
-const dotenv = require('dotenv')
 const morgan = require('morgan')
-const router = require('@config/routes')
-const swaggerUi = require('swagger-ui-express')
-const swaggerSpec = require('@config/swagger')
-const app = express()
+
+const dotenv = require('dotenv')
 dotenv.config()
+
+const router = require('@config/routes')
+const app = express()
 
 app.use(bodyParser.json())
 app.use(cors())
@@ -31,8 +31,6 @@ app.use(router)
 app.get('/', (req, res) => {
     res.send('It works')
 })
-
-app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec))
 
 // Run the app server
 if (!module.parent) {
