@@ -8,6 +8,7 @@
         "test": "test"
     },
     "scripts": {
+        "start": "node app.js",
         "dev": "nodemon app.js",
         "format:api": "npx prettier --write api/**/**.js",
         "format:test": "npx prettier --write test/api/**/**.js"
