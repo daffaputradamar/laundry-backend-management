@@ -14,7 +14,6 @@ module.exports = {
             .catch(err => console.log(err))
     },
     authenticate: (req, res) => {
-        console.log('tes')
         const { username, password } = req.body
         User.findOne({ username })
             .then(user => {
@@ -55,21 +54,21 @@ module.exports = {
             .catch(err => console.log(err))
     },
     store: (req, res) => {
-        if (req.user.role == 'admin') {
-            let newUser = req.body
-            bcrypt.genSalt(10, function(err, salt) {
+        // if (req.user.role == 'admin') {
+        let newUser = req.body
+        bcrypt.genSalt(10, function(err, salt) {
+            if (err) throw err
+            bcrypt.hash(newUser.password, salt, function(err, hash) {
                 if (err) throw err
-                bcrypt.hash(newUser.password, salt, function(err, hash) {
-                    if (err) throw err
-                    newUser.password = hash
-                    User.create(newUser)
-                        .then(user => res.json(user))
-                        .catch(err => console.log(err))
-                })
+                newUser.password = hash
+                User.create(newUser)
+                    .then(user => res.json(user))
+                    .catch(err => console.log(err))
             })
-        } else {
-            res.sendStatus(403)
-        }
+        })
+        // } else {
+        //     res.sendStatus(403)
+        // }
     },
     destroy: (req, res) => {
         if (req.user.role == 'admin') {

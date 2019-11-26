@@ -7,6 +7,10 @@ const userSchema = mongoose.Schema({
         unique: true,
         required: true,
     },
+    name: {
+        type: String,
+    },
+
     role: {
         type: String,
         enum: ['admin', 'kasir'],
