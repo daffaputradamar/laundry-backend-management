@@ -7,6 +7,6 @@ router.get('/item', mreportController.keluarItem)
 router.get('/outcome', mreportController.keluarOutcome)
 router.get('/outcome2', mreportController.keluarOutcome2)
 router.get('/salary', mreportController.keluarSalary)
-router.get('/pengeluaran', mReportsItemController.pengeluaran)
+router.get('/pengeluaran', mreportController.pengeluaran)
 
 module.exports = router
